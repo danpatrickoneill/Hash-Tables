@@ -54,6 +54,10 @@ class HashTable:
 
         Fill this in.
         '''
+
+        if None not in self.storage:
+            self.resize()
+
         index = self._hash_mod(key)
         current_node = self.storage[index]
         if current_node is None:
@@ -105,7 +109,6 @@ class HashTable:
             current_node = self.storage[index]
 
             while current_node:
-                print("Line 109: ", current_node, current_node.next)
                 if current_node.key == key:
                     return current_node.value
                 current_node = current_node.next
