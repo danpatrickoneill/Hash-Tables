@@ -118,10 +118,12 @@ class HashTable:
 
         Fill this in.
         '''
-        new_storage = [None] * (self.capacity * 2)
-        for i in range(self.capacity):
-            new_storage[i] = self.storage[i]
-        self.storage = new_storage
+        new_hash = HashTable(self.capacity * 2)
+        for elem in self.storage:
+            while elem:
+                new_hash.insert(elem.key, elem.value)
+                elem = elem.next
+        self.capacity, self.storage = new_hash.capacity, new_hash.storage
 
 
 if __name__ == "__main__":
