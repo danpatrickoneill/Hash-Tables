@@ -9,6 +9,9 @@ class LinkedPair:
         self.value = value
         self.next = None
 
+    def __str__(self):
+        return f'{self.key}: {self.value}'
+
 
 class HashTable:
     '''
@@ -52,19 +55,25 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        if self.storage[index] is None:
-            print(f"Key {key} starting new linked list")
+        current_node = self.storage[index]
+        if current_node is None:
             self.storage[index] = LinkedPair(key, value)
         else:
-            print(f"Key exists, {key} appending to linked list")
-            current_node = self.storage[index]
+            if current_node.key == key:
+                print("Matching keys!")
+                current_node.value = value
+                return
             while current_node.next:
-                # print(
-                #     f"Current node: {current_node.value}: {current_node.key} -> {current_node.next.value if current_node.next else None}")
+                print("Line 67: ", current_node.key, key)
                 if current_node.key == key:
+                    print("Matching keys!")
                     current_node.value = value
                     return
                 current_node = current_node.next
+            if current_node.key == key:
+                print("Matching keys!")
+                current_node.value = value
+                return
             current_node.next = LinkedPair(key, value)
 
     def remove(self, key):
@@ -81,12 +90,12 @@ class HashTable:
         else:
             current_node = self.storage[index]
             while current_node:
-                print(current_node.value)
+
                 if current_node.key == key:
                     current_node.value = None
                     return
                 current_node = current_node.next
-            print("Key not found")
+        print("Key not found")
         return
 
     def retrieve(self, key):
@@ -99,16 +108,15 @@ class HashTable:
         '''
         index = self._hash_mod(key)
         if self.storage[index] is None:
-            print("Key not found")
             return None
         else:
             current_node = self.storage[index]
+
             while current_node:
+                print("Line 109: ", current_node, current_node.next)
                 if current_node.key == key:
-                    print(f"Key {key} found! Value: {current_node.value}")
                     return current_node.value
                 current_node = current_node.next
-            print("Key not found")
             return None
 
     def resize(self):
@@ -125,29 +133,64 @@ class HashTable:
 
 
 if __name__ == "__main__":
-    ht = HashTable(2)
+    # ht = HashTable(2)
 
-    ht.insert("line_1", "Tiny hash table")
-    ht.insert("line_2", "Filled beyond capacity")
-    ht.insert("line_3", "Linked list saves the day!")
+    # ht.insert("line_1", "Tiny hash table")
+    # ht.insert("line_2", "Filled beyond capacity")
+    # ht.insert("line_3", "Linked list saves the day!")
 
-    print("")
+    # print("")
 
-    # Test storing beyond capacity
-    print(ht.retrieve("line_1"))
-    print(ht.retrieve("line_2"))
-    print(ht.retrieve("line_3"))
+    # # Test storing beyond capacity
+    # print(ht.retrieve("line_1"))
+    # print(ht.retrieve("line_2"))
+    # print(ht.retrieve("line_3"))
 
-    # Test resizing
-    old_capacity = len(ht.storage)
-    ht.resize()
-    new_capacity = len(ht.storage)
+    # # Test resizing
+    # old_capacity = len(ht.storage)
+    # ht.resize()
+    # new_capacity = len(ht.storage)
 
-    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+    # print(f"\nResized from {old_capacity} to {new_capacity}.\n")
 
-    # Test if data intact after resizing
-    print(ht.retrieve("line_1"))
-    print(ht.retrieve("line_2"))
-    print(ht.retrieve("line_3"))
+    # # Test if data intact after resizing
+    # print(ht.retrieve("line_1"))
+    # print(ht.retrieve("line_2"))
+    # print(ht.retrieve("line_3"))
 
-    print("")
+    # print("")
+
+    ht = HashTable(8)
+
+    ht.insert("key-0", "val-0")
+    ht.insert("key-1", "val-1")
+    ht.insert("key-2", "val-2")
+    ht.insert("key-3", "val-3")
+    ht.insert("key-4", "val-4")
+    ht.insert("key-5", "val-5")
+    ht.insert("key-6", "val-6")
+    ht.insert("key-7", "val-7")
+    ht.insert("key-8", "val-8")
+    ht.insert("key-9", "val-9")
+
+    ht.insert("key-0", "new-val-0")
+    ht.insert("key-1", "new-val-1")
+    ht.insert("key-2", "new-val-2")
+    ht.insert("key-3", "new-val-3")
+    ht.insert("key-4", "new-val-4")
+    ht.insert("key-5", "new-val-5")
+    ht.insert("key-6", "new-val-6")
+    ht.insert("key-7", "new-val-7")
+    ht.insert("key-8", "new-val-8")
+    ht.insert("key-9", "new-val-9")
+
+    print(ht.retrieve("key-0"))
+    print(ht.retrieve("key-1"))
+    print(ht.retrieve("key-2"))
+    print(ht.retrieve("key-3"))
+    print(ht.retrieve("key-4"))
+    print(ht.retrieve("key-5"))
+    print(ht.retrieve("key-6"))
+    print(ht.retrieve("key-7"))
+    print(ht.retrieve("key-8"))
+    print(ht.retrieve("key-9"))
