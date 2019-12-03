@@ -130,64 +130,29 @@ class HashTable:
 
 
 if __name__ == "__main__":
-    # ht = HashTable(2)
+    ht = HashTable(2)
 
-    # ht.insert("line_1", "Tiny hash table")
-    # ht.insert("line_2", "Filled beyond capacity")
-    # ht.insert("line_3", "Linked list saves the day!")
+    ht.insert("line_1", "Tiny hash table")
+    ht.insert("line_2", "Filled beyond capacity")
+    ht.insert("line_3", "Linked list saves the day!")
 
-    # print("")
+    print("")
 
-    # # Test storing beyond capacity
-    # print(ht.retrieve("line_1"))
-    # print(ht.retrieve("line_2"))
-    # print(ht.retrieve("line_3"))
+    # Test storing beyond capacity
+    print(ht.retrieve("line_1"))
+    print(ht.retrieve("line_2"))
+    print(ht.retrieve("line_3"))
 
-    # # Test resizing
-    # old_capacity = len(ht.storage)
-    # ht.resize()
-    # new_capacity = len(ht.storage)
+    # Test resizing
+    old_capacity = len(ht.storage)
+    ht.resize()
+    new_capacity = len(ht.storage)
 
-    # print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
 
-    # # Test if data intact after resizing
-    # print(ht.retrieve("line_1"))
-    # print(ht.retrieve("line_2"))
-    # print(ht.retrieve("line_3"))
+    # Test if data intact after resizing
+    print(ht.retrieve("line_1"))
+    print(ht.retrieve("line_2"))
+    print(ht.retrieve("line_3"))
 
-    # print("")
-
-    ht = HashTable(8)
-
-    ht.insert("key-0", "val-0")
-    ht.insert("key-1", "val-1")
-    ht.insert("key-2", "val-2")
-    ht.insert("key-3", "val-3")
-    ht.insert("key-4", "val-4")
-    ht.insert("key-5", "val-5")
-    ht.insert("key-6", "val-6")
-    ht.insert("key-7", "val-7")
-    ht.insert("key-8", "val-8")
-    ht.insert("key-9", "val-9")
-
-    ht.insert("key-0", "new-val-0")
-    ht.insert("key-1", "new-val-1")
-    ht.insert("key-2", "new-val-2")
-    ht.insert("key-3", "new-val-3")
-    ht.insert("key-4", "new-val-4")
-    ht.insert("key-5", "new-val-5")
-    ht.insert("key-6", "new-val-6")
-    ht.insert("key-7", "new-val-7")
-    ht.insert("key-8", "new-val-8")
-    ht.insert("key-9", "new-val-9")
-
-    print(ht.retrieve("key-0"))
-    print(ht.retrieve("key-1"))
-    print(ht.retrieve("key-2"))
-    print(ht.retrieve("key-3"))
-    print(ht.retrieve("key-4"))
-    print(ht.retrieve("key-5"))
-    print(ht.retrieve("key-6"))
-    print(ht.retrieve("key-7"))
-    print(ht.retrieve("key-8"))
-    print(ht.retrieve("key-9"))
+    print("")
