@@ -59,22 +59,14 @@ class HashTable:
         if current_node is None:
             self.storage[index] = LinkedPair(key, value)
         else:
-            if current_node.key == key:
-                print("Matching keys!")
-                current_node.value = value
-                return
-            while current_node.next:
-                print("Line 67: ", current_node.key, key)
+            prev_node = None
+            while current_node:
                 if current_node.key == key:
-                    print("Matching keys!")
                     current_node.value = value
                     return
+                prev_node = current_node
                 current_node = current_node.next
-            if current_node.key == key:
-                print("Matching keys!")
-                current_node.value = value
-                return
-            current_node.next = LinkedPair(key, value)
+            prev_node.next = LinkedPair(key, value)
 
     def remove(self, key):
         '''
