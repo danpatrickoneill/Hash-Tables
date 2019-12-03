@@ -37,7 +37,12 @@ class HashTable:
 
         OPTIONAL STRETCH: Research and implement DJB2
         '''
-        pass
+        byte_key = key.encode('utf-8')
+        hash_value = 5381
+        for char in byte_key:
+            hash_value += (hash_value << 5) + char
+
+        return hash_value % self.capacity
 
     def _hash_mod(self, key):
         '''
@@ -55,10 +60,10 @@ class HashTable:
         Fill this in.
         '''
 
-        if None not in self.storage:
-            self.resize()
+        # if None not in self.storage:
+        #     self.resize()
 
-        index = self._hash_mod(key)
+        index = self._hash_djb2(key)
         current_node = self.storage[index]
         if current_node is None:
             self.storage[index] = LinkedPair(key, value)
@@ -80,7 +85,7 @@ class HashTable:
 
         Fill this in.
         '''
-        index = self._hash_mod(key)
+        index = self._hash_djb2(key)
         if self.storage[index] is None:
             print("Key not found")
         else:
@@ -102,7 +107,7 @@ class HashTable:
 
         Fill this in.
         '''
-        index = self._hash_mod(key)
+        index = self._hash_djb2(key)
         if self.storage[index] is None:
             return None
         else:
