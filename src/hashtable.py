@@ -1,21 +1,27 @@
 # '''
 # Linked List hash table key/value pair
 # '''
+
+
 class LinkedPair:
     def __init__(self, key, value):
         self.key = key
         self.value = value
         self.next = None
 
+    def __str__(self):
+        return f'{self.key}: {self.value}'
+
+
 class HashTable:
     '''
     A hash table that with `capacity` buckets
     that accepts string keys
     '''
+
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
-
 
     def _hash(self, key):
         '''
@@ -25,15 +31,18 @@ class HashTable:
         '''
         return hash(key)
 
-
     def _hash_djb2(self, key):
         '''
         Hash an arbitrary key using DJB2 hash
 
         OPTIONAL STRETCH: Research and implement DJB2
         '''
-        pass
+        byte_key = key.encode('utf-8')
+        hash_value = 5381
+        for char in byte_key:
+            hash_value += (hash_value << 5) + char
 
+        return hash_value % self.capacity
 
     def _hash_mod(self, key):
         '''
@@ -41,7 +50,6 @@ class HashTable:
         within the storage capacity of the hash table.
         '''
         return self._hash(key) % self.capacity
-
 
     def insert(self, key, value):
         '''
@@ -51,9 +59,23 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
 
+        # if None not in self.storage:
+        #     self.resize()
 
+        index = self._hash_djb2(key)
+        current_node = self.storage[index]
+        if current_node is None:
+            self.storage[index] = LinkedPair(key, value)
+        else:
+            prev_node = None
+            while current_node:
+                if current_node.key == key:
+                    current_node.value = value
+                    return
+                prev_node = current_node
+                current_node = current_node.next
+            prev_node.next = LinkedPair(key, value)
 
     def remove(self, key):
         '''
@@ -63,8 +85,19 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_djb2(key)
+        if self.storage[index] is None:
+            print("Key not found")
+        else:
+            current_node = self.storage[index]
+            while current_node:
 
+                if current_node.key == key:
+                    current_node.value = None
+                    return
+                current_node = current_node.next
+        print("Key not found")
+        return
 
     def retrieve(self, key):
         '''
@@ -74,8 +107,17 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_djb2(key)
+        if self.storage[index] is None:
+            return None
+        else:
+            current_node = self.storage[index]
 
+            while current_node:
+                if current_node.key == key:
+                    return current_node.value
+                current_node = current_node.next
+            return None
 
     def resize(self):
         '''
@@ -84,8 +126,12 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
-
+        new_hash = HashTable(self.capacity * 2)
+        for elem in self.storage:
+            while elem:
+                new_hash.insert(elem.key, elem.value)
+                elem = elem.next
+        self.capacity, self.storage = new_hash.capacity, new_hash.storage
 
 
 if __name__ == "__main__":
